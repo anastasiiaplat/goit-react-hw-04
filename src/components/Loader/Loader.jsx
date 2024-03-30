@@ -1,13 +1,19 @@
-
-import Loader from 'react-loader-spinner';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-
-const CustomLoader = () => {
+import { ThreeDots } from "react-loader-spinner";
+import css from "./Loader.module.css";
+const Loader = () => {
   return (
-    <div style={{ textAlign: 'center', marginTop: '20px' }}>
-      <Loader type="TailSpin" color="#00BFFF" height={50} width={50} />
+    <div className={css.loader}>
+      <ThreeDots
+        visible={true}
+        height="80"
+        width="80"
+        color="#2a2828"
+        radius="9"
+        ariaLabel="three-dots-loading"
+        wrapperClass=""
+      />
     </div>
   );
 };
 
-export default CustomLoader;
+export default Loader;
