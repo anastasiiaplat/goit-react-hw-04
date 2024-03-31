@@ -1,20 +1,16 @@
+import ImageCard from "../ImageCard/ImageCard";
 
 
-const ImageGallery = ({ images }) => {
-  
-  if (!images || images.length === 0) {
-    return null;
-  }
-
+const ImageGallery = ({ images, onImageClick }) => {
   return (
     <ul>
-      {images.map((image, index) => (
-        <li key={index}>
-          <div>
-            <img src={image.urls.regular} alt={image.description || 'Image'} />
-          </div>
-        </li>
-      ))}
+      {images.map((img) => {
+        return (
+          <li key={img.id}>
+            <ImageCard img={img} onImageClick={onImageClick} />
+          </li>
+        );
+      })}
     </ul>
   );
 };

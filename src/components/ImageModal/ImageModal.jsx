@@ -1,19 +1,26 @@
+import Modal from "react-modal";
 
-import Modal from 'react-modal';
 
-const ImageModal = ({ modalIsOpen, closeModal, imageUrl, imageAlt }) => {
+Modal.setAppElement("#root");
+
+const ImageModal = ({
+  closeModal,
+  modalIsOpen,
+  imageSrc = "https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg",
+  imageAltDescription = "Regular gallery image",
+  
+}) => {
   return (
-
-
     <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-            contentLabel="Large Image Modal"
-            className="modal"
-            overlayClassName="overlay"
-          >
-    
-      <img src={imageUrl} alt={imageAlt} style={{ width: '100%', height: 'auto' }} />
+      isOpen={modalIsOpen}
+      onRequestClose={closeModal}
+    >
+      {" "}
+      
+        <div>
+          <img src={imageSrc} alt={imageAltDescription} />
+        
+      </div>
     </Modal>
   );
 };

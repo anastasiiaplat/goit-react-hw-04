@@ -1,14 +1,12 @@
 
-
-const LoadMoreBtn = ({ onLoadMore, hasMoreImages }) => {
-  if (!hasMoreImages) {
-    return null; 
-  }
-
+const LoadMoreBtn = ({ onLoadMore }) => {
   return (
-    <div style={{ textAlign: 'center', marginTop: '20px' }}>
-      <button onClick={onLoadMore}>Load more</button>
-    </div>
+    <button
+      onClick={() => onLoadMore()}
+      type="button"
+    >
+      Load More...
+    </button>
   );
 };
 

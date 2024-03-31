@@ -1,32 +1,42 @@
+import { Formik, Form, Field } from "formik";
+import toast, { Toaster } from "react-hot-toast";
+import { BiSearchAlt } from "react-icons/bi";
 
-import { useForm } from 'react-hook-form';
-import { useToaster } from 'react-hot-toast';
 
-const SearchBar = ({ onSubmit }) => {
-  const { register, handleSubmit } = useForm();
-  const toaster = useToaster();
-  
-  const handleFormSubmit = (data) => {
-    if (data.searchText.trim() === '') {
-      toaster.error('Please enter text to search images.');
+const SearchBar = ({ onSearch }) => {
+  const initialValues = {
+    query: "",
+  };
+  const handleSubmit = (values, actions) => {
+    if (!values.query) {
+      toast("Please enter your search!", {
+        position: "top-right",
+      });
       return;
     }
-    onSubmit(data.searchText);
+    onSearch(values.query);
+    actions.resetForm();
   };
-  
+
   return (
-    <header>
-      <form onSubmit={handleSubmit(handleFormSubmit)}>
-        <input
-          type="text"
-          {...register('searchText')}
-          autoComplete="off"
-          autoFocus
-          placeholder="Search images and photos"
-        />
-        <button type="submit">Search</button>
-      </form>
-    </header>
+    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+      <header>
+        <Form>
+          <button type="submit">
+            <BiSearchAlt/>
+          </button>
+          <Field
+            
+            type="text"
+            name="query"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos..."
+          />
+        </Form>
+        <Toaster />
+      </header>
+    </Formik>
   );
 };
 
