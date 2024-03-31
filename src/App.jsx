@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import ImageGallery from './components/ImageGallery/ImageGallery';
 import Loader from './components/Loader/Loader';
 import ErrorMessage from './components/ErrorMessage/ErrorMessage';
@@ -22,10 +21,7 @@ function App() {
     const fetchImages = async () => {
       setLoading(true);
       try {
-        const response = await requestImages({
-          client_id: 'xogthnLMHTngN01rgyyuntTTupu7L3Oqm5gTLKufwMg',
-          page: page,
-        });
+        const response = await requestImages('', page); 
         setImages(prevImages => (prevImages ? [...prevImages, ...response.data] : response.data));
       } catch (error) {
         console.error('Error fetching images:', error);
