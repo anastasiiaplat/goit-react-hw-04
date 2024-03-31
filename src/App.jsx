@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import ImageGallery from './components/ImageGallery/ImageGallery';
 import Loader from './components/Loader/Loader';
 import ErrorMessage from './components/ErrorMessage/ErrorMessage';
-import Modal from 'react-modal';
+import Modal from 'react-modal'; 
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 import ImageModal from './components/ImageModal/ImageModal';
-import { requestImages } from './services/api'; 
+import { requestImages } from './services/api';
 
 Modal.setAppElement('#root');
 
@@ -21,7 +21,7 @@ function App() {
     const fetchImages = async () => {
       setLoading(true);
       try {
-        const response = await requestImages('', page); 
+        const response = await requestImages(page);
         setImages(prevImages => (prevImages ? [...prevImages, ...response.data] : response.data));
       } catch (error) {
         console.error('Error fetching images:', error);
@@ -60,15 +60,7 @@ function App() {
             <ImageGallery images={images} openModal={openModal} />
           )}
           <LoadMoreBtn onLoadMore={handleLoadMore} hasMoreImages={images && images.length > 0} />
-          <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-            contentLabel="Large Image Modal"
-            className="modal"
-            overlayClassName="overlay"
-          >
-            <ImageModal imageUrl={selectedImage} onClose={closeModal} />
-          </Modal>
+          <ImageModal modalIsOpen={modalIsOpen} closeModal={closeModal} imageUrl={selectedImage} imageAlt={selectedImage} onClose={closeModal}/>
         </>
       )}
     </div>
