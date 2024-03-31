@@ -6,7 +6,7 @@ import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import Modal from 'react-modal';
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 import ImageModal from './components/ImageModal/ImageModal';
-import { requestImages } from './api'; 
+import { requestImages } from './services/api'; 
 
 Modal.setAppElement('#root');
 
