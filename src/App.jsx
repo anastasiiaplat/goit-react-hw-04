@@ -20,8 +20,9 @@ function App() {
   useEffect(() => {
     const fetchImages = async () => {
       setLoading(true);
+      setError(false); 
       try {
-        const response = await requestImages(page);
+        const response = await requestImages(page, ''); 
         setImages(prevImages => (prevImages ? [...prevImages, ...response.data] : response.data));
       } catch (error) {
         console.error('Error fetching images:', error);
@@ -48,22 +49,24 @@ function App() {
     setModalIsOpen(false);
   };
 
+  const modalData = {
+    closeModal,
+    modalIsOpen,
+    imageUrl: selectedImage,
+    imageAlt: "Modal Image",
+    onClose: closeModal
+  };
+
   return (
-    <div>
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <ErrorMessage />
-      ) : (
-        <>
-          {images && images.length > 0 && (
-            <ImageGallery images={images} openModal={openModal} />
-          )}
-          <LoadMoreBtn onLoadMore={handleLoadMore} hasMoreImages={images && images.length > 0} />
-          <ImageModal modalIsOpen={modalIsOpen} closeModal={closeModal} imageUrl={selectedImage} imageAlt={selectedImage} onClose={closeModal}/>
-        </>
+    <>
+      {loading && <Loader />} 
+      {error && <ErrorMessage />} 
+      {images && images.length > 0 && (
+        <ImageGallery images={images} openModal={openModal} />
       )}
-    </div>
+      <LoadMoreBtn onLoadMore={handleLoadMore} hasMoreImages={images && images.length > 0} />
+      <ImageModal {...modalData} />
+    </>
   );
 }
 
