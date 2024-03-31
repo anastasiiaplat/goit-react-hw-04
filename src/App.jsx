@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+
 import ImageGallery from './components/ImageGallery/ImageGallery';
 import Loader from './components/Loader/Loader';
 import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import Modal from 'react-modal';
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 import ImageModal from './components/ImageModal/ImageModal';
+import { requestImages } from './api'; 
 
-Modal.setAppElement('#root'); 
+Modal.setAppElement('#root');
 
 function App() {
   const [images, setImages] = useState(null);
@@ -15,16 +16,15 @@ function App() {
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [modalIsOpen, setModalIsOpen] = useState(false); 
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   useEffect(() => {
     const fetchImages = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('https://api.unsplash.com/photos', {
-          params: {
-            client_id: 'xogthnLMHTngN01rgyyuntTTupu7L3Oqm5gTLKufwMg',
-            page: page,
-          },
+        const response = await requestImages({
+          client_id: 'xogthnLMHTngN01rgyyuntTTupu7L3Oqm5gTLKufwMg',
+          page: page,
         });
         setImages(prevImages => (prevImages ? [...prevImages, ...response.data] : response.data));
       } catch (error) {
@@ -44,12 +44,12 @@ function App() {
 
   const openModal = (imageUrl) => {
     setSelectedImage(imageUrl);
-    setModalIsOpen(true); 
+    setModalIsOpen(true);
   };
 
   const closeModal = () => {
     setSelectedImage(null);
-    setModalIsOpen(false); 
+    setModalIsOpen(false);
   };
 
   return (
