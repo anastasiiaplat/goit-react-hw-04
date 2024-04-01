@@ -9,15 +9,16 @@ const ImageCard = ({ img, onImageClick }) => {
   };
 
   return (
-    <div  onClick={() => onImageClick(imageData)}>
+   
       <img
+        onClick={() => onImageClick(imageData)}
         src={img.urls.small}
         alt={img.alt_description}
         width={310}
         height={200}
       />
       
-    </div>
+  
   );
 };
 
