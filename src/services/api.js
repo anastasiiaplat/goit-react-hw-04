@@ -1,15 +1,25 @@
 import axios from "axios";
 
- const requestImages = async (page, query) => {
-    const { data } = await axios.get("https://api.unsplash.com/search/photos", {
-        params: {
-            client_id: 'xogthnLMHTngN01rgyyuntTTupu7L3Oqm5gTLKufwMg',
-            query: query,
-            page: page,
-            orientation: "landscape"
-        },
-    });
-    return data;
+axios.defaults.baseURL = "https://api.unsplash.com";
+const ACCESS_KEY = "xogthnLMHTngN01rgyyuntTTupu7L3Oqm5gTLKufwMg";
+
+const searchParms = {
+  client_id: ACCESS_KEY,
+  query: "",
+  page: 1,
+  per_page: 20,
+  orientation: "landscape",
 };
 
-export default requestImages;
+const requestImagesByQuery = async (query, page) => {
+  const { data } = await axios.get("/search/photos", {
+    params: {
+      ...searchParms,
+      page,
+      query,
+    },
+  });
+  return data;
+};
+
+export default requestImagesByQuery;

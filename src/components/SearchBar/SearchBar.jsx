@@ -22,8 +22,8 @@ const SearchBar = ({ onSearch }) => {
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       <header>
         <Form>
-          <button type="submit">
-            <BiSearchAlt/>
+          <button  type="submit">
+            <BiSearchAlt  />
           </button>
           <Field
             
